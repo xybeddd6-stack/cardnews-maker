@@ -372,8 +372,9 @@ export default function CardNewsMaker() {
 
   const onPhoto = (files) => {
     const f = files && files[0];
-    if (!f || !f.type.startsWith("image/") || photoTarget.current == null) return;
-    const slot = photoTarget.current, idx = selIdx;
+    const target = photoTarget.current;
+    if (!f || !f.type.startsWith("image/") || !target) return;
+    const { cardIdx: idx, slot } = target;
     const r = new FileReader();
     // 읽기가 끝난 뒤 최신 deck 기준으로 반영한다(닫힌 변수 stale 방지).
     r.onload = () => setDeck((d) => (!d ? d : { ...d, cards: d.cards.map((c, i) => {
@@ -386,7 +387,7 @@ export default function CardNewsMaker() {
     r.readAsDataURL(f);
   };
   // value 비우기는 읽는 중이 아니라 다음 선택 직전에. (Safari 에서 읽는 도중 비우면 파일 참조가 깨진다)
-  const pickPhoto = (slot) => { photoTarget.current = slot; const el = fileRef.current; if (!el) return; el.value = ""; el.click(); };
+  const pickPhoto = (cardIdx, slot) => { photoTarget.current = { cardIdx, slot }; const el = fileRef.current; if (!el) return; el.value = ""; el.click(); };
 
   const addSticker = (preset) => { const s = { id: sid(), type: preset.type, text: preset.text, fill: preset.fill, xPct: 50, yPct: 50 }; upd(selIdx, { stickers: [...(sel.stickers || []), s] }); setSelSt(s.id); };
   const updSt = (id, patch) => upd(selIdx, { stickers: sel.stickers.map((s) => (s.id === id ? { ...s, ...patch } : s)) });
@@ -578,7 +579,7 @@ export default function CardNewsMaker() {
                       {/* photos */}
                       {!fullbleed && slots(c.type).map((s, si) => (
                         <div key={si} className={`hz-ph${s.sq ? " sq" : ""}`} style={{ left: `${s.l}%`, top: `${s.t}%`, width: `${s.w}%`, height: `${s.h}%`, borderRadius: s.full ? 0 : undefined }}
-                             onClick={(e) => { e.stopPropagation(); setSelIdx(i); pickPhoto(si); }}>
+                             onClick={(e) => { e.stopPropagation(); setSelIdx(i); pickPhoto(i, si); }}>
                           {c.photos?.[si] ? <img src={c.photos[si]} alt="" /> : <div className="hz-ph-hint">＋ 사진</div>}
                         </div>
                       ))}
