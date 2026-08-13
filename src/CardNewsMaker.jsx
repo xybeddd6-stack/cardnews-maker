@@ -296,7 +296,7 @@ export default function CardNewsMaker() {
       const p = await askAI({
         system: SYSTEM,
         prompt: `주제: ${q}\n톤: ${TONEMAP[tone]}\n\n지정된 JSON으로만 구성하라.`,
-        maxTokens: 1200,
+        maxTokens: 2600,
       });
       const mk = (type, extra) => ({ id: uid(), type, photos: Array(PHOTON[type]).fill(null), stickers: [], color: "#111111", hl: "#FFE99C", ...extra });
       const cards = [mk("cover", { title: p.cover?.title || "", subtitle: p.cover?.subtitle || "", badge: p.cover?.badge || "★여기 포인트", scrim: true })];
@@ -320,7 +320,7 @@ export default function CardNewsMaker() {
       const p = await askAI({
         system: sys,
         prompt: `전체 주제: ${topic}\n이 카드 역할: ${role}\n${cur}\n\n같은 주제·역할을 유지하되 문구를 새롭게 바꿔서 JSON으로만.`,
-        maxTokens: 600,
+        maxTokens: 1200,
       });
       const patch = {}; if (p.title != null) patch.title = p.title; if (p.text != null) patch.text = p.text; if (p.subtitle != null) patch.subtitle = p.subtitle; if (p.badge != null) patch.badge = p.badge;
       upd(i, patch);
@@ -343,7 +343,7 @@ export default function CardNewsMaker() {
     try {
       const sys = `당신은 인스타그램 카드뉴스 카피라이터다. 친근하고 담백한 요즘 카드뉴스 톤. 주어진 카드 카피를 사용자의 지시대로 고쳐 쓴다. 원래 의미와 주제는 유지하되 지시를 확실히 반영한다. 표지(cover)의 title에서는 핵심 단어 하나를 [[ ]]로 감싸 형광펜 강조를 줘도 좋다. 한국어. 반드시 아래 JSON만 출력(마크다운·코드펜스 금지): ${shape}`;
       const usr = `전체 주제: ${topic}\n카드 종류: ${role}\n현재 카피: ${JSON.stringify(fields)}\n요청: ${instruction}`;
-      const parsed = await askAI({ system: sys, prompt: usr, maxTokens: 800 });
+      const parsed = await askAI({ system: sys, prompt: usr, maxTokens: 1600 });
       const patch = {}; Object.keys(fields).forEach((k) => { if (typeof parsed[k] === "string") patch[k] = parsed[k]; });
       if (Object.keys(patch).length) upd(idx, patch);
       setRefineText("");
