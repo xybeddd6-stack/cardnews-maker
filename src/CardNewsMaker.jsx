@@ -92,7 +92,7 @@ const PHOTON = { cover: 1, text: 0, photo: 2, phototop: 1, split: 2, square: 1, 
 
 const CSS = `
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css');
-@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;700;800&family=Parisienne&display=swap');
 .hz-root{ --paper:#F2F1EC; --ink:#111; --stone:#8b877e; --line:#e2ded4; --font:${FONT};
   background:var(--paper); color:var(--ink); min-height:100%; width:100%; font-family:var(--font); -webkit-font-smoothing:antialiased; box-sizing:border-box; }
 .hz-root *,.hz-root *::before,.hz-root *::after{ box-sizing:border-box; }
@@ -148,7 +148,8 @@ const CSS = `
 .hz-ei{ width:100%; font-family:var(--font); font-size:14px; color:var(--ink); border:1px solid var(--line); border-radius:8px; padding:9px 10px; background:#fff; resize:vertical; line-height:1.5; }
 .hz-ei:focus{ outline:none; border-color:var(--ink); }
 .hz-row{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
-.hz-file{ display:none; }
+/* display:none 이면 Safari 가 programmatic .click() 을 무시한다. 화면에서만 숨긴다. */
+.hz-file{ position:fixed; width:1px; height:1px; opacity:0; pointer-events:none; left:-9999px; top:0; }
 .hz-lay{ display:flex; flex-wrap:wrap; gap:6px; }
 .hz-laybtn{ font-size:12px; color:var(--stone); background:#fff; border:1px solid var(--line); border-radius:8px; padding:7px 12px; cursor:pointer; }
 .hz-laybtn.on{ background:var(--ink); color:#fff; border-color:var(--ink); }
@@ -160,7 +161,7 @@ const CSS = `
 /* ── 크롬: 소프트 에디토리얼 (라운드 · 페리윙클/옐로우 · Pretendard) ── */
 .db-root{ --ink:#211f1b; --mut:#928d84; --line:#ECE8E0; --paper:#FAF8F3; --card:#fff;
   --blue:#5B68E0; --blueSoft:#EEF0FC; --yellow:#FBEE86; --yellowSoft:#FDF7C9;
-  --display:${FONT}; --sans:${FONT};
+  --display:${FONT}; --sans:${FONT}; --script:'Parisienne', 'Apple Chancery', cursive;
   background:var(--paper); color:var(--ink); min-height:100vh; padding:clamp(14px,3vw,44px); font-family:var(--sans); }
 .db-frame{ max-width:1440px; margin:0 auto; background:var(--card); border:1px solid var(--line); border-radius:30px; box-shadow:0 24px 64px rgba(40,38,32,.07); overflow:hidden; }
 .db-top{ display:flex; align-items:center; gap:12px; padding:18px 28px; border-bottom:1px solid var(--line); }
@@ -168,6 +169,7 @@ const CSS = `
 .db-top .side.right{ justify-content:flex-end; }
 .db-issue{ font-weight:600; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--mut); white-space:nowrap; }
 .db-masthead{ font-family:var(--display); font-weight:700; font-size:21px; letter-spacing:-.02em; text-align:center; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:36vw; color:var(--blue); }
+.db-masthead.brand{ font-family:var(--script); font-weight:400; font-size:29px; letter-spacing:0; line-height:1.25; padding-bottom:3px; }
 .db-zoom{ font-size:12px; color:var(--mut); font-weight:500; }
 .db-ico{ width:18px; height:18px; color:var(--ink); flex:none; }
 .db-hero{ text-align:center; padding:clamp(22px,3.2vw,36px) 24px clamp(14px,2vw,20px); }
@@ -193,7 +195,7 @@ const CSS = `
 .db-editwrap .hc{ font-size:11px; color:var(--mut); margin:0 0 18px; }
 .db-loading, .db-error{ max-width:540px; margin:6vh auto; text-align:center; }
 .db-error .db-panel{ padding:22px; }
-@media (max-width:820px){ .db-masthead{ max-width:44vw; font-size:19px; } }
+@media (max-width:820px){ .db-masthead{ max-width:44vw; font-size:18px; } .db-masthead.brand{ font-size:24px; } }
 .db-toolbar{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px 16px; padding:14px 28px; border-bottom:1px solid var(--line); }
 .db-toolbar-actions{ display:flex; gap:8px; flex:none; }
 .db-root .hz-btn{ white-space:nowrap; }
@@ -218,7 +220,7 @@ const CSS = `
 .db-root .hz-laybtn.on{ background:var(--blue); color:#fff; border-color:var(--blue); }
 .db-root .hz-stickbtn{ border:1px solid var(--line); border-radius:14px; }
 .db-root .hz-card{ border:1px solid var(--line); border-radius:16px; }
-.db-root .hz-loading{ color:var(--mut); font-family:var(--display); }
+.db-root .hz-loading{ color:var(--blue); font-family:var(--script); font-weight:400; font-size:clamp(26px,6vw,38px); letter-spacing:0; }
 .db-root .hz-ai{ background:var(--blueSoft); border:1px solid #DFE2FA; border-radius:14px; padding:14px; margin-bottom:18px; }
 .db-root .hz-ai .lbl{ font-size:11px; font-weight:700; letter-spacing:.06em; color:var(--blue); margin:0 0 10px; }
 .db-root .hz-aichips{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:9px; }
@@ -353,8 +355,23 @@ export default function CardNewsMaker() {
 
   const changeLayout = (i, type) => { const c = deck.cards[i]; const photos = Array(PHOTON[type]).fill(null); (c.photos || []).forEach((ph, k) => { if (k < photos.length) photos[k] = ph; }); upd(i, { type, photos }); };
 
-  const onPhoto = (files) => { const f = files && files[0]; if (!f || !f.type.startsWith("image/") || photoTarget.current == null) return; const slot = photoTarget.current; const r = new FileReader(); r.onload = () => { const photos = [...(sel.photos || [])]; photos[slot] = r.result; upd(selIdx, { photos }); }; r.readAsDataURL(f); };
-  const pickPhoto = (slot) => { photoTarget.current = slot; fileRef.current?.click(); };
+  const onPhoto = (files) => {
+    const f = files && files[0];
+    if (!f || !f.type.startsWith("image/") || photoTarget.current == null) return;
+    const slot = photoTarget.current, idx = selIdx;
+    const r = new FileReader();
+    // 읽기가 끝난 뒤 최신 deck 기준으로 반영한다(닫힌 변수 stale 방지).
+    r.onload = () => setDeck((d) => (!d ? d : { ...d, cards: d.cards.map((c, i) => {
+      if (i !== idx) return c;
+      const photos = [...(c.photos || [])];
+      photos[slot] = r.result;
+      return { ...c, photos };
+    }) }));
+    r.onerror = () => setError("사진을 불러오지 못했어요. 다른 이미지를 선택해 주세요.");
+    r.readAsDataURL(f);
+  };
+  // value 비우기는 읽는 중이 아니라 다음 선택 직전에. (Safari 에서 읽는 도중 비우면 파일 참조가 깨진다)
+  const pickPhoto = (slot) => { photoTarget.current = slot; const el = fileRef.current; if (!el) return; el.value = ""; el.click(); };
 
   const addSticker = (preset) => { const s = { id: sid(), type: preset.type, text: preset.text, fill: preset.fill, xPct: 50, yPct: 50 }; upd(selIdx, { stickers: [...(sel.stickers || []), s] }); setSelSt(s.id); };
   const updSt = (id, patch) => upd(selIdx, { stickers: sel.stickers.map((s) => (s.id === id ? { ...s, ...patch } : s)) });
@@ -475,13 +492,17 @@ export default function CardNewsMaker() {
   return (
     <div className="hz-root db-root">
       <style>{CSS}</style>
-      <input ref={fileRef} type="file" accept="image/*" className="hz-file" onChange={(e) => { onPhoto(e.target.files); e.target.value = ""; }} />
+      <input ref={fileRef} type="file" accept="image/*" className="hz-file" tabIndex={-1} aria-hidden="true" onChange={(e) => onPhoto(e.target.files)} />
 
       <div className="db-frame">
         {/* 마스트헤드 */}
         <div className="db-top">
           <div className="side"><span className="db-issue">Studio · 2026</span></div>
-          <div className="db-masthead">{deck ? (topic.trim() || "Card News Studio") : "Card News Studio"}</div>
+          {(() => {
+            const t = (deck && topic.trim()) || "Card News Studio";
+            // 브랜드명일 때만 필기체. 한글 주제는 Pretendard 로 둔다(필기체에 한글 글리프가 없다).
+            return <div className={`db-masthead${t === "Card News Studio" ? " brand" : ""}`}>{t}</div>;
+          })()}
           <div className="side right">
             <svg className="db-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4 4-6 8-6s8 2 8 6" /></svg>
             <svg className="db-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="14" /><path d="M3 6l9 7 9-7" /></svg>
@@ -523,7 +544,7 @@ export default function CardNewsMaker() {
             </section>
           )}
 
-          {loading && <div className="db-loading"><div className="hz-loading">카드 짜는 중</div></div>}
+          {loading && <div className="db-loading"><div className="hz-loading">Crafting your cards</div></div>}
           {error && !loading && (<div className="db-error"><div className="db-panel" style={{ padding: 20 }}><div className="hz-err" style={{ border: 0, padding: 0 }}>{error}</div><div className="hz-actions"><button className="hz-btn ghost" onClick={() => setError(null)}>다시 시도</button></div></div></div>)}
 
           {deck && !loading && (
