@@ -159,17 +159,19 @@ const CSS = `
 .hz-foot{ font-size:11px; color:var(--stone); text-align:center; margin-top:24px; line-height:1.7; }
 
 /* ── 크롬: 소프트 에디토리얼 (라운드 · 페리윙클/옐로우 · Pretendard) ── */
-.db-root{ --ink:#211f1b; --mut:#928d84; --line:#ECE8E0; --paper:#FAF8F3; --card:#fff;
+.db-root{ --ink:#211f1b; --mut:#928d84; --line:#ECE8E0; --paper:#FAF8F3; --card:#fff; --page-pad:clamp(14px,3vw,44px);
   --blue:#5B68E0; --blueSoft:#EEF0FC; --yellow:#FBEE86; --yellowSoft:#FDF7C9;
   --display:${FONT}; --sans:${FONT}; --serif:'Fraunces', Georgia, serif;
-  background:var(--paper); color:var(--ink); min-height:100vh; padding:clamp(14px,3vw,44px); font-family:var(--sans); }
-.db-frame{ max-width:1440px; margin:0 auto; background:var(--card); border:1px solid var(--line); border-radius:30px; box-shadow:0 24px 64px rgba(40,38,32,.07); overflow:hidden; }
-.db-top{ display:flex; align-items:center; gap:12px; padding:18px 28px; border-bottom:1px solid var(--line); }
+  background:var(--paper); color:var(--ink); min-height:100vh; padding:var(--page-pad); font-family:var(--sans); }
+.db-frame{ max-width:1440px; min-height:calc(100vh - var(--page-pad) - var(--page-pad)); margin:0 auto; background:var(--card); border:1px solid var(--line); border-radius:30px; box-shadow:0 24px 64px rgba(40,38,32,.07); overflow:hidden; display:flex; flex-direction:column; }
+.db-top{ display:flex; align-items:center; gap:12px; padding:18px 28px 14px; border-bottom:1px solid var(--line); }
 .db-top .side{ display:flex; align-items:center; gap:12px; flex:1 1 0; min-width:0; }
 .db-top .side.right{ justify-content:flex-end; }
 .db-issue{ font-weight:600; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--mut); white-space:nowrap; }
+.db-titleblock{ flex:0 1 auto; min-width:0; display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center; }
 .db-masthead{ font-family:var(--display); font-weight:700; font-size:21px; letter-spacing:-.02em; text-align:center; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:36vw; color:var(--blue); }
 .db-masthead.brand{ font-family:var(--serif); font-weight:600; font-size:22px; letter-spacing:.005em; }
+.db-top-sub{ font-weight:500; font-size:clamp(12.5px,3vw,14px); letter-spacing:-.01em; color:var(--mut); white-space:nowrap; }
 .db-zoom{ font-size:12px; color:var(--mut); font-weight:500; }
 .db-ico{ width:18px; height:18px; color:var(--ink); flex:none; }
 .db-hero{ text-align:center; padding:clamp(22px,3.2vw,36px) 24px clamp(14px,2vw,20px); }
@@ -178,10 +180,11 @@ const CSS = `
 .db-hero .kr{ font-weight:500; font-size:clamp(12.5px,3vw,14px); letter-spacing:-.01em; margin-top:10px; color:var(--mut); }
 .db-rule{ border:0; border-top:1px solid var(--line); margin:0 28px; }
 .db-subline{ text-align:center; font-size:clamp(12px,3vw,14px); color:var(--mut); padding:16px 24px 2px; line-height:1.6; }
-.db-body{ padding:clamp(20px,3.6vw,38px); }
+.db-body{ padding:clamp(20px,3.6vw,38px); flex:1; }
+.db-body.landing{ width:min(912px,100%); min-height:min(726px,calc(100vh - 190px)); margin:0 auto; padding:clamp(34px,4.8vh,48px) clamp(18px,3vw,32px) 0; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; }
 .db-seclabel{ font-weight:700; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--blue); margin:0 0 16px; }
 .db-panel{ background:var(--card); border:1px solid var(--line); border-radius:22px; }
-.db-about{ max-width:540px; margin:1vh auto; padding:32px 30px; }
+.db-about{ width:min(100%,720px); max-width:720px; min-height:640px; margin:0 auto; padding:56px 44px 54px; display:flex; flex-direction:column; }
 .db-about h2{ font-family:var(--display); font-weight:700; font-size:25px; letter-spacing:-.03em; margin:0 0 6px; color:var(--ink); }
 .db-about p.sub{ font-size:13px; color:var(--mut); margin:0 0 20px; line-height:1.7; }
 .db-work{ display:grid; grid-template-columns:1fr; gap:22px; }
@@ -195,12 +198,24 @@ const CSS = `
 .db-editwrap .hc{ font-size:11px; color:var(--mut); margin:0 0 18px; }
 .db-loading, .db-error{ max-width:540px; margin:6vh auto; text-align:center; }
 .db-error .db-panel{ padding:22px; }
+.db-body:has(.db-loading), .db-body:has(.db-error){ display:flex; align-items:flex-start; justify-content:center; }
+.db-body:has(.db-loading) .db-loading, .db-body:has(.db-error) .db-error{ width:100%; margin:clamp(54px,12vh,120px) auto 0; }
 @media (max-width:820px){ .db-masthead{ max-width:44vw; font-size:18px; } .db-masthead.brand{ font-size:19px; } }
 .db-toolbar{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px 16px; padding:14px 28px; border-bottom:1px solid var(--line); }
 .db-toolbar-actions{ display:flex; gap:8px; flex:none; }
 .db-root .hz-btn{ white-space:nowrap; }
 .db-root .hz-swrow{ flex-wrap:wrap; }
 .db-root .hz-seg button{ white-space:nowrap; padding:9px 6px; }
+.db-about .hz-input{ min-height:82px; }
+.db-about .hz-bar{ width:100%; gap:18px; }
+.db-about .hz-chips{ gap:12px; margin-bottom:20px; }
+.db-about .hz-actions{ margin-top:auto; padding-top:78px; }
+.db-editwrap .hz-field{ margin-bottom:24px; }
+.db-editwrap .hz-flabel{ margin-bottom:10px; }
+.db-editwrap .hz-row{ gap:12px; }
+.db-editwrap .hz-lay{ gap:10px; }
+.db-editwrap .hz-stickpick{ gap:16px; margin-top:4px; }
+.db-editwrap .hz-ai{ margin-bottom:26px; }
 
 /* 소프트 톤 오버라이드 */
 .db-root .hz-input, .db-root .hz-ei, .db-root .hz-handle{ border:1px solid var(--line); border-radius:14px; background:#fff; }
@@ -498,11 +513,14 @@ export default function CardNewsMaker() {
         {/* 마스트헤드 */}
         <div className="db-top">
           <div className="side"><span className="db-issue">Studio · 2026</span></div>
-          {(() => {
-            const t = (deck && topic.trim()) || "Card News Studio";
-            // 브랜드명일 때만 Fraunces. 한글 주제는 Pretendard 로 둔다(Fraunces 에 한글 글리프가 없다).
-            return <div className={`db-masthead${t === "Card News Studio" ? " brand" : ""}`}>{t}</div>;
-          })()}
+          <div className="db-titleblock">
+            {(() => {
+              const t = (deck && topic.trim()) || "Card News Studio";
+              // 브랜드명일 때만 Fraunces. 한글 주제는 Pretendard 로 둔다(Fraunces 에 한글 글리프가 없다).
+              return <div className={`db-masthead${t === "Card News Studio" ? " brand" : ""}`}>{t}</div>;
+            })()}
+            {!deck && <div className="db-top-sub">주제 한 줄이면, 카드뉴스가 완성됩니다</div>}
+          </div>
           <div className="side right">
             <svg className="db-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4 4-6 8-6s8 2 8 6" /></svg>
             <svg className="db-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="14" /><path d="M3 6l9 7 9-7" /></svg>
@@ -520,14 +538,7 @@ export default function CardNewsMaker() {
           </div>
         )}
 
-        {!deck && !loading && (
-          <>
-            <div className="db-hero"><h1>카드뉴스 메이커</h1><div className="kr">주제 한 줄이면, 카드뉴스가 완성됩니다</div></div>
-            <hr className="db-rule" />
-          </>
-        )}
-
-        <div className="db-body">
+        <div className={`db-body${!deck && !loading ? " landing" : ""}`}>
           {!deck && !loading && (
             <section className="db-panel db-about">
               <p className="db-seclabel">New Card News</p>
