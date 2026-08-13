@@ -220,7 +220,7 @@ const CSS = `
 .db-root .hz-laybtn.on{ background:var(--blue); color:#fff; border-color:var(--blue); }
 .db-root .hz-stickbtn{ border:1px solid var(--line); border-radius:14px; }
 .db-root .hz-card{ border:1px solid var(--line); border-radius:16px; }
-.db-root .hz-loading{ color:var(--ink); font-family:var(--serif); font-style:italic; font-weight:600; font-size:clamp(15px,3.4vw,19px); letter-spacing:0; }
+.db-root .hz-loading{ color:var(--mut); font-family:var(--serif); font-style:italic; font-weight:600; font-size:clamp(15px,3.4vw,19px); letter-spacing:0; }
 .db-root .hz-ai{ background:var(--blueSoft); border:1px solid #DFE2FA; border-radius:14px; padding:14px; margin-bottom:18px; }
 .db-root .hz-ai .lbl{ font-size:11px; font-weight:700; letter-spacing:.06em; color:var(--blue); margin:0 0 10px; }
 .db-root .hz-aichips{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:9px; }
