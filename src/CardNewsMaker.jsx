@@ -174,7 +174,7 @@ const CSS = `
 .db-ico{ width:18px; height:18px; color:var(--ink); flex:none; }
 .db-hero{ text-align:center; padding:clamp(22px,3.2vw,36px) 24px clamp(14px,2vw,20px); }
 .db-kicker{ font-family:var(--display); font-weight:600; font-size:clamp(14px,3vw,18px); letter-spacing:-.02em; color:var(--blue); margin:0 0 12px; }
-.db-hero h1{ font-weight:800; font-size:clamp(22px,4.2vw,34px); letter-spacing:-.04em; margin:0; line-height:1.15; }
+.db-hero h1{ font-weight:600; font-size:clamp(22px,4.2vw,34px); letter-spacing:-.04em; margin:0; line-height:1.15; }
 .db-hero .kr{ font-weight:500; font-size:clamp(12.5px,3vw,14px); letter-spacing:-.01em; margin-top:10px; color:var(--mut); }
 .db-rule{ border:0; border-top:1px solid var(--line); margin:0 28px; }
 .db-subline{ text-align:center; font-size:clamp(12px,3vw,14px); color:var(--mut); padding:16px 24px 2px; line-height:1.6; }
@@ -220,7 +220,7 @@ const CSS = `
 .db-root .hz-laybtn.on{ background:var(--blue); color:#fff; border-color:var(--blue); }
 .db-root .hz-stickbtn{ border:1px solid var(--line); border-radius:14px; }
 .db-root .hz-card{ border:1px solid var(--line); border-radius:16px; }
-.db-root .hz-loading{ color:var(--blue); font-family:var(--serif); font-style:italic; font-weight:600; font-size:clamp(20px,5vw,28px); letter-spacing:0; }
+.db-root .hz-loading{ color:var(--ink); font-family:var(--serif); font-style:italic; font-weight:600; font-size:clamp(15px,3.4vw,19px); letter-spacing:0; }
 .db-root .hz-ai{ background:var(--blueSoft); border:1px solid #DFE2FA; border-radius:14px; padding:14px; margin-bottom:18px; }
 .db-root .hz-ai .lbl{ font-size:11px; font-weight:700; letter-spacing:.06em; color:var(--blue); margin:0 0 10px; }
 .db-root .hz-aichips{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:9px; }
