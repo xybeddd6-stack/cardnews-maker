@@ -92,7 +92,7 @@ const PHOTON = { cover: 1, text: 0, photo: 2, phototop: 1, split: 2, square: 1, 
 
 const CSS = `
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css');
-@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;700;800&family=IBM+Plex+Sans+KR:wght@400;500;700&family=Nanum+Myeongjo:wght@400;700;800&family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;700;800&display=swap');
 .hz-root{ --paper:#F2F1EC; --ink:#111; --stone:#8b877e; --line:#e2ded4; --font:${FONT};
   background:var(--paper); color:var(--ink); min-height:100%; width:100%; font-family:var(--font); -webkit-font-smoothing:antialiased; box-sizing:border-box; }
 .hz-root *,.hz-root *::before,.hz-root *::after{ box-sizing:border-box; }
@@ -157,30 +157,30 @@ const CSS = `
 .hz-stickbtn:hover{ border-color:var(--ink); } .hz-stickbtn img{ max-height:36px; max-width:120px; }
 .hz-foot{ font-size:11px; color:var(--stone); text-align:center; margin-top:24px; line-height:1.7; }
 
-/* ── 크롬: 소프트 에디토리얼 (라운드 · 페리윙클/옐로우 · Fraunces) ── */
+/* ── 크롬: 소프트 에디토리얼 (라운드 · 페리윙클/옐로우 · Pretendard) ── */
 .db-root{ --ink:#211f1b; --mut:#928d84; --line:#ECE8E0; --paper:#FAF8F3; --card:#fff;
   --blue:#5B68E0; --blueSoft:#EEF0FC; --yellow:#FBEE86; --yellowSoft:#FDF7C9;
-  --serif:'Fraunces', Georgia, serif; --sans:'Pretendard Variable', Pretendard, 'Gothic A1', sans-serif;
+  --display:${FONT}; --sans:${FONT};
   background:var(--paper); color:var(--ink); min-height:100vh; padding:clamp(14px,3vw,44px); font-family:var(--sans); }
-.db-frame{ max-width:1080px; margin:0 auto; background:var(--card); border:1px solid var(--line); border-radius:30px; box-shadow:0 24px 64px rgba(40,38,32,.07); overflow:hidden; }
+.db-frame{ max-width:1440px; margin:0 auto; background:var(--card); border:1px solid var(--line); border-radius:30px; box-shadow:0 24px 64px rgba(40,38,32,.07); overflow:hidden; }
 .db-top{ display:flex; align-items:center; gap:12px; padding:18px 28px; border-bottom:1px solid var(--line); }
 .db-top .side{ display:flex; align-items:center; gap:12px; flex:1 1 0; min-width:0; }
 .db-top .side.right{ justify-content:flex-end; }
 .db-issue{ font-weight:600; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--mut); white-space:nowrap; }
-.db-masthead{ font-family:var(--serif); font-weight:600; font-size:22px; letter-spacing:.005em; text-align:center; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:36vw; color:var(--blue); }
+.db-masthead{ font-family:var(--display); font-weight:700; font-size:21px; letter-spacing:-.02em; text-align:center; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:36vw; color:var(--blue); }
 .db-zoom{ font-size:12px; color:var(--mut); font-weight:500; }
 .db-ico{ width:18px; height:18px; color:var(--ink); flex:none; }
-.db-hero{ text-align:center; padding:clamp(40px,6.5vw,72px) 24px clamp(16px,2.5vw,24px); }
-.db-kicker{ font-family:var(--serif); font-style:italic; font-weight:500; font-size:clamp(15px,3vw,20px); color:var(--blue); margin:0 0 12px; }
-.db-hero h1{ font-weight:800; font-size:clamp(24px,5.7vw,48px); letter-spacing:-.035em; margin:0; line-height:1.04; }
-.db-hero .kr{ font-weight:500; font-size:clamp(13px,3vw,15px); letter-spacing:.01em; margin-top:16px; color:var(--mut); }
+.db-hero{ text-align:center; padding:clamp(22px,3.2vw,36px) 24px clamp(14px,2vw,20px); }
+.db-kicker{ font-family:var(--display); font-weight:600; font-size:clamp(14px,3vw,18px); letter-spacing:-.02em; color:var(--blue); margin:0 0 12px; }
+.db-hero h1{ font-weight:800; font-size:clamp(22px,4.2vw,34px); letter-spacing:-.04em; margin:0; line-height:1.15; }
+.db-hero .kr{ font-weight:500; font-size:clamp(12.5px,3vw,14px); letter-spacing:-.01em; margin-top:10px; color:var(--mut); }
 .db-rule{ border:0; border-top:1px solid var(--line); margin:0 28px; }
 .db-subline{ text-align:center; font-size:clamp(12px,3vw,14px); color:var(--mut); padding:16px 24px 2px; line-height:1.6; }
 .db-body{ padding:clamp(20px,3.6vw,38px); }
 .db-seclabel{ font-weight:700; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--blue); margin:0 0 16px; }
 .db-panel{ background:var(--card); border:1px solid var(--line); border-radius:22px; }
 .db-about{ max-width:540px; margin:1vh auto; padding:32px 30px; }
-.db-about h2{ font-family:var(--serif); font-weight:600; font-size:26px; margin:0 0 6px; color:var(--ink); }
+.db-about h2{ font-family:var(--display); font-weight:700; font-size:25px; letter-spacing:-.03em; margin:0 0 6px; color:var(--ink); }
 .db-about p.sub{ font-size:13px; color:var(--mut); margin:0 0 20px; line-height:1.7; }
 .db-work{ display:grid; grid-template-columns:1fr; gap:22px; }
 @media (min-width:980px){ .db-work{ grid-template-columns:minmax(0,1fr) 344px; align-items:start; } }
@@ -189,7 +189,7 @@ const CSS = `
 .db-boardhead .t{ font-weight:700; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink); }
 .db-boardhead .c{ font-size:11px; color:var(--mut); }
 .db-editwrap{ padding:24px; }
-.db-editwrap .h{ font-family:var(--serif); font-weight:600; font-size:19px; margin:0 0 3px; }
+.db-editwrap .h{ font-family:var(--display); font-weight:700; font-size:18px; letter-spacing:-.03em; margin:0 0 3px; }
 .db-editwrap .hc{ font-size:11px; color:var(--mut); margin:0 0 18px; }
 .db-loading, .db-error{ max-width:540px; margin:6vh auto; text-align:center; }
 .db-error .db-panel{ padding:22px; }
@@ -218,7 +218,7 @@ const CSS = `
 .db-root .hz-laybtn.on{ background:var(--blue); color:#fff; border-color:var(--blue); }
 .db-root .hz-stickbtn{ border:1px solid var(--line); border-radius:14px; }
 .db-root .hz-card{ border:1px solid var(--line); border-radius:16px; }
-.db-root .hz-loading{ color:var(--mut); font-family:var(--serif); }
+.db-root .hz-loading{ color:var(--mut); font-family:var(--display); }
 .db-root .hz-ai{ background:var(--blueSoft); border:1px solid #DFE2FA; border-radius:14px; padding:14px; margin-bottom:18px; }
 .db-root .hz-ai .lbl{ font-size:11px; font-weight:700; letter-spacing:.06em; color:var(--blue); margin:0 0 10px; }
 .db-root .hz-aichips{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:9px; }
@@ -503,7 +503,6 @@ export default function CardNewsMaker() {
           <>
             <div className="db-hero"><h1>카드뉴스 메이커</h1><div className="kr">주제 한 줄이면, 카드뉴스가 완성됩니다</div></div>
             <hr className="db-rule" />
-            <div className="db-subline">시끄러운 인스타 카드뉴스 말고, 매거진처럼 담백하게. 레이아웃·사진·스티커로 완성하세요.</div>
           </>
         )}
 
