@@ -127,9 +127,9 @@ const CSS = `
 .hz-card{ width:min(80vw,320px); aspect-ratio:4/5; border:1px solid var(--line); border-radius:6px; overflow:hidden; position:relative; cursor:pointer; background:#FDFCF8; transition:box-shadow .15s; touch-action:none; }
 .hz-card.sel{ box-shadow:0 0 0 2px var(--ink); }
 .hz-bgimg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-.hz-grad{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(217,217,217,0) 0%, rgba(0,0,0,.6) 100%); }
-.hz-pad{ position:absolute; inset:0; padding:7.5% 7%; }
-.hz-handletop{ position:absolute; top:4.5%; left:0; right:0; text-align:center; font-weight:700; font-size:min(3.2vw,12px); z-index:3; }
+.hz-grad{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(217,217,217,0) 0%, rgba(0,0,0,.6) 100%); pointer-events:none; }
+.hz-pad{ position:absolute; inset:0; padding:7.5% 7%; pointer-events:none; }
+.hz-handletop{ position:absolute; top:4.5%; left:0; right:0; text-align:center; font-weight:700; font-size:min(3.2vw,12px); z-index:3; pointer-events:none; }
 .hz-handletop.white{ color:#fff; }
 .hz-ctitle{ font-weight:800; letter-spacing:-.02em; line-height:1.25; }
 .hz-cbody{ font-weight:400; line-height:1.45; letter-spacing:-.01em; }
