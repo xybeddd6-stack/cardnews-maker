@@ -7,13 +7,13 @@ import React, { useState, useRef, useEffect } from "react";
 // ─────────────────────────────────────────────────────────────
 
 const BGS = {
-  paper: { name: "본문", kind: "solid", hex: "#FDFCF8" },
-  cream: { name: "크림", kind: "solid", hex: "#FCFCF0" },
-  mist: { name: "안개", kind: "solid", hex: "#FAFAF8" },
-  sage: { name: "세이지", kind: "solid", hex: "#F8F9F6" },
-  paper2: { name: "종이", kind: "solid", hex: "#F3F0E9" },
-  glow: { name: "글로우", kind: "glow", base: "#FDFBF3", glow: "#FBE49B" },
-  fade: { name: "미스트", kind: "grad", top: "#F5F4F0", bottom: "#E6E4DD" },
+  paper: { name: "화이트", kind: "solid", hex: "#FBFAF6" },
+  cream: { name: "크림", kind: "solid", hex: "#F4EFE3" },
+  mist: { name: "라벤더", kind: "solid", hex: "#C9C3F5" },
+  sage: { name: "블루", kind: "solid", hex: "#C9DEEC" },
+  paper2: { name: "그레이", kind: "solid", hex: "#ECEBF1" },
+  glow: { name: "오로라", kind: "glow", base: "#FBFAF6", glow: "#C9C3F5" },
+  fade: { name: "그라데이션", kind: "grad", top: "#FBFAF6", bottom: "#C9C3F5" },
 };
 const BGKEYS = Object.keys(BGS);
 const cssBg = (k) => { const b = BGS[k] || BGS.paper; if (b.kind === "solid") return b.hex; if (b.kind === "glow") return `radial-gradient(65% 48% at 62% 38%, ${b.glow}, rgba(251,228,155,0) 72%), ${b.base}`; return `linear-gradient(180deg, ${b.top}, ${b.bottom})`; };
@@ -60,11 +60,20 @@ const STICKERS = [
   { key: "oval", type: "oval", text: "이거 미쳤다(P)", fill: "#D7FFFC" },
 ];
 
-const SYSTEM = `당신은 인스타그램 카드뉴스 카피라이터다. 친근하고 편안한 요즘 카드뉴스 톤. 이모지는 제목에 하나 정도 가볍게.
-주제를 받아 표지 1장 + 본문 2~4장 + 마무리 1장 구성.
-- cover: title(눈에 띄는 짧은 제목. 핵심 단어 하나를 [[ ]]로 감싸면 형광펜 강조가 됨. 예: "[[카드뉴스]] 제작하기"), subtitle(한 줄), badge(짧은 강조 한 마디, 예: ★여기 포인트)
-- body 각 장: layout("text"|"photo"|"phototop"), title(소제목), text(2~3문장)
-- closing: title(마무리 한 줄), text(저장·공유 유도)
+const SYSTEM = `당신은 미니멀한 에디토리얼 웹 포스터 스타일의 카드뉴스 디렉터다.
+참고 스타일:
+- 큰 타이포그래피, 짧고 강한 제목
+- 얇은 라인, 둥근 pill, 작은 영문 라벨
+- 라벤더/하늘색/크림/화이트 기반의 세련된 스타트업 무드
+- 한 장 한 장이 카드뉴스라기보다 웹 매거진 섹션처럼 보여야 함
+- 문장은 짧고 여백이 많게
+- 제목에는 핵심 단어 하나를 [[ ]]로 감싸 강조
+
+주제를 받아 표지 1장 + 본문 3장 + 마무리 1장 구성.
+- cover: title은 아주 크게 보일 짧은 문장, subtitle은 한 줄, badge는 작은 pill 문구
+- body 각 장: layout은 "text", "photo", "phototop" 중 하나. title은 8~14자 중심. text는 1~2문장만.
+- closing: 저장/공유를 유도하는 짧은 문구
+
 한국어. 반드시 JSON만(마크다운·코드펜스 금지):
 { "cover":{"title":"","subtitle":"","badge":""}, "body":[{"layout":"text","title":"","text":""}], "closing":{"title":"","text":""} }`;
 
