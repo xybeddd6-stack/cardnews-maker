@@ -2,7 +2,7 @@
 // 브라우저에는 키가 절대 내려가지 않는다. 키는 Vercel 환경변수 GEMINI_API_KEY 로만 존재.
 
 // gemini-2.5-flash 는 신규 키에 더 이상 열리지 않는다. flash-latest 별칭을 쓴다.
-const MODEL = process.env.GEMINI_MODEL || "gemini-flash-latest";
+const MODEL = process.env.GEMINI_MODEL || "gemini-2.0-flash";
 const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 
 export default async function handler(req, res) {
@@ -30,8 +30,7 @@ export default async function handler(req, res) {
           responseMimeType: "application/json",
           maxOutputTokens: Math.min(Number(maxTokens) || 2048, 8192),
           temperature: 1,
-          // thinkingBudget 은 이 모델에서 400. thinkingLevel "minimal" 이 사고 토큰을 0으로 만든다.
-          thinkingConfig: { thinkingLevel: "minimal" },
+          
         },
       }),
     });
