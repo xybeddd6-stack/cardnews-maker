@@ -38,7 +38,12 @@ export default async function handler(req, res) {
     if (!r.ok) {
       const detail = await r.text();
       console.error("gemini error", r.status, detail.slice(0, 500));
-      return res.status(502).json({ error: "생성 실패" });
+     return res.status(502).json({
+  error: "생성 실패",
+  status: r.status,
+  model: MODEL,
+  detail: detail.slice(0, 1000),
+});
     }
 
     const data = await r.json();
@@ -60,6 +65,9 @@ export default async function handler(req, res) {
     return res.status(200).json({ text });
   } catch (e) {
     console.error("gemini exception", e);
-    return res.status(502).json({ error: "생성 실패" });
+    return res.status(502).json({
+  error: "생성 실패",
+  detail: e?.message || String(e),
+});
   }
 }
