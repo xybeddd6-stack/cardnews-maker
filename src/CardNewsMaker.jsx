@@ -181,10 +181,21 @@ const CSS = `
 .db-rule{ border:0; border-top:1px solid var(--line); margin:0 28px; }
 .db-subline{ text-align:center; font-size:clamp(12px,3vw,14px); color:var(--mut); padding:16px 24px 2px; line-height:1.6; }
 .db-body{ padding:clamp(20px,3.6vw,38px); flex:1; }
-.db-body.landing{ width:min(912px,100%); min-height:min(726px,calc(100vh - 190px)); margin:0 auto; padding:clamp(34px,4.8vh,48px) clamp(18px,3vw,32px) 0; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; }
+.db-body.landing{ width:min(1180px,100%); min-height:min(726px,calc(100vh - 190px)); margin:0 auto; padding:clamp(26px,4vh,44px) clamp(18px,3vw,32px) clamp(28px,3.5vw,44px); display:grid; grid-template-columns:1fr; gap:clamp(30px,4vw,60px); align-items:start; }
+@media (min-width:1000px){ .db-body.landing{ grid-template-columns:0.82fr 1.18fr; } }
+/* 랜딩 히어로 */
+.lhero{ padding-top:clamp(20px,2.6vw,40px); }
+.lhero .big{ font-family:var(--serif); font-weight:500; font-size:clamp(34px,3.8vw,52px); line-height:1; letter-spacing:-.02em; margin:0; }
+.lhero .sub{ font-size:clamp(13px,1.6vw,15px); color:#4A463E; margin:24px 0 0; line-height:1.6; }
+.lhero .divider{ width:56px; height:1px; background:var(--ink); margin:24px 0 0; }
+.lhero .badge{ width:130px; height:130px; margin:38px 0 0; display:block; }
+.lhero .foot{ margin-top:42px; }
+.lhero .foot .s{ font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--mut); }
+.lhero .foot .d{ font-size:13px; color:var(--mut); margin-top:8px; line-height:1.6; }
+@media (max-width:999px){ .lhero{ padding-top:0; text-align:center; } .lhero .divider, .lhero .badge{ margin-left:auto; margin-right:auto; } }
 .db-seclabel{ font-weight:700; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--blue); margin:0 0 16px; }
 .db-panel{ background:var(--card); border:1px solid var(--line); border-radius:22px; }
-.db-about{ width:min(100%,720px); max-width:720px; min-height:640px; margin:0 auto; padding:56px 44px 54px; display:flex; flex-direction:column; }
+.db-about{ width:100%; max-width:720px; min-height:640px; margin:0 auto; padding:56px 44px 54px; display:flex; flex-direction:column; }
 .db-about h2{ font-family:var(--display); font-weight:700; font-size:25px; letter-spacing:-.03em; margin:0 0 6px; color:var(--ink); }
 .db-about p.sub{ font-size:13px; color:var(--mut); margin:0 0 20px; line-height:1.7; }
 .db-work{ display:grid; grid-template-columns:1fr; gap:22px; }
@@ -520,7 +531,6 @@ export default function CardNewsMaker() {
               // 브랜드명일 때만 Fraunces. 한글 주제는 Pretendard 로 둔다(Fraunces 에 한글 글리프가 없다).
               return <div className={`db-masthead${t === "Card News Studio" ? " brand" : ""}`}>{t}</div>;
             })()}
-            {!deck && <div className="db-top-sub">주제 한 줄이면, 카드뉴스가 완성됩니다</div>}
           </div>
           <div className="side right">
             <svg className="db-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4 4-6 8-6s8 2 8 6" /></svg>
@@ -540,6 +550,20 @@ export default function CardNewsMaker() {
         )}
 
         <div className={`db-body${!deck && !loading ? " landing" : ""}`}>
+          {!deck && !loading && (
+            <div className="lhero">
+              <h1 className="big">CARD<br />NEWS<br />STUDIO</h1>
+              <p className="sub">주제 한 줄이면 카드뉴스가 완성됩니다</p>
+              <div className="divider" />
+              <svg className="badge" viewBox="0 0 150 150" aria-hidden="true">
+                <defs><path id="cnb" d="M75,75 m-56,0 a56,56 0 1,1 112,0 a56,56 0 1,1 -112,0" /></defs>
+                <text fontSize="10.5" letterSpacing="2.4" fill="#8C867B" fontWeight="600"><textPath href="#cnb" startOffset="0">CREATE YOUR STORY · SHARE YOUR INSIGHT · </textPath></text>
+                <path d="M75 57 l5.5 12.5 12.5 5.5 -12.5 5.5 -5.5 12.5 -5.5 -12.5 -12.5 -5.5 12.5 -5.5 z" fill="#5B68E0" />
+              </svg>
+              <div className="foot"><div className="s">Studio · 2026</div><div className="d">당신의 아이디어를 매력적인 카드뉴스로</div></div>
+            </div>
+          )}
+
           {!deck && !loading && (
             <section className="db-panel db-about">
               <p className="db-seclabel">New Card News</p>
